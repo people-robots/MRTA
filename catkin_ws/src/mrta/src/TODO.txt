@@ -1,0 +1,4 @@
+- improve the design of BitSchedule
+    - change the constructor
+
+- change name of 'prepare_for_coalition'
