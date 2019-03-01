@@ -250,46 +250,68 @@ class DcopAllocator:
     def _calc_coalition_cost(self, robots, task):
         coalition_cost = utils.NEG_INF
         start_time = -1
-        bitarrays = []             
-        task_copy = deepcopy(task)        
-        new_duration = task_copy.duration/len(robots)
+        bitarrays = []
+        task_copy = deepcopy(task)
+        new_duration = task_copy.duration / len(
+            robots)  # this needs to be changed since not every robot will have same duration
 
         if self._limit_collab and len(robots) > 1:
-            delta = task_copy.duration ** (1./3.) #cube root
-            if (task_copy.duration/(len(robots)-1) - new_duration) < delta:
+            delta = task_copy.duration ** (1. / 3.)  # cube root
+            # print("delta: ", delta)
+            if (task_copy.duration / (len(robots) - 1) - new_duration) < delta:
                 return coalition_cost, start_time
 
+        # this needs to be changed since not every robot will have same duration
+        # currently change_duration have these: last start time && estimated finish time
+        # self.lst = self.lft - duration + 1
+        # self.eft = self.est + duration - 1
         task_copy.change_duration(new_duration)
 
         l = task_copy.est - 1
-        if task_copy in self._tasks_preconditions:
-            l = max(l, self._tasks_preconditions[task_copy] - 1)            
-        l = int(math.ceil(l))
-        r = int(math.ceil(task_copy.lft)) 
+        # print("task: ", task_copy, "est: ",task_copy.est)
+        if task_copy in self._tasks_preconditions:  # _preconditions -> task:integer
+            # print("preconditions: ", self._tasks_preconditions)
+            l = max(l, self._tasks_preconditions[task_copy] - 1)
 
-        for robot in robots:            
-            arr = robot.get_bit_schedule(task_copy)
+            # this round l and r up (integer)
+        l = int(math.ceil(l))  # prev_task.finish_time
+        r = int(math.ceil(task_copy.lft))  # next_task.start_time
+
+        for robot in robots:
+            arr = robot.get_bit_schedule(task_copy)  # after running preparation for coalition
+            # print("arr: ", arr)
+            # print("task_copy.lft: ", task_copy.lft)
             if len(arr) < task_copy.lft:
                 padding = [0] * (task_copy.lft - len(arr))
                 arr.extend(padding)
+
+            # print("bitarrys before: ", bitarrays)
+            # in bitarrays, 0 represents idle, 1 represnts traveling or doing tasks
+            # arr[l:r]  -> arr[from_index : to_index]
             bitarrays.append(arr[l:r])
 
-
         i = utils.find_common_gap_in_bit_schedules(bitarrays, task_copy.duration)
+        print("common gap: ", i)
         if i != -1:
-            start_time = l + i + 1        
+            start_time = l + i + 1  # new start time to perform the collaborated task
             max_ms = utils.NEG_INF
             total_tt = 0
 
             num_of_robots = len(robots)
             for robot in robots:
                 ms, tt = robot.get_ms_tt(task_copy, self._tasks_preconditions, start_time)
-                if ms != None and tt != None:  
+                # ms is the updated makespan (after the collaborated task), tt is the addtional travel time
+                if ms != None and tt != None:
                     max_ms = max(ms, max_ms)
                     total_tt += tt
 
-            if max_ms != utils.NEG_INF and total_tt != 0:                
+            if max_ms != utils.NEG_INF and total_tt != 0:
                 coalition_cost = utils.compute_task_cost(max_ms, total_tt, self._alpha)
-        
+                # ms * alpha + tt * (1 - alpha)
+
         return coalition_cost, start_time
-        
+
+    # problem with fixing coalition:
+    # 1. task duration is calculated before and is the same for all collaborating robots (line 262 and line 274)
+    # 2. start time for the collaborated task isthe same for all robots too (line 304)
+    #3. If robots start the same task at different time, then there must be a central agent to keep track of how much work is done and how much work is left; otherwise it will be impossible to calculate individual task duration
