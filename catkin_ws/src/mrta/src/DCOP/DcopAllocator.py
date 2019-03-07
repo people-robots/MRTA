@@ -252,8 +252,7 @@ class DcopAllocator:
         start_time = -1
         bitarrays = []
         task_copy = deepcopy(task)
-        new_duration = task_copy.duration / len(
-            robots)  # this needs to be changed since not every robot will have same duration
+        new_duration = task_copy.duration / len(robots)  # this needs to be changed since not every robot will have same duration
 
         if self._limit_collab and len(robots) > 1:
             delta = task_copy.duration ** (1. / 3.)  # cube root
@@ -266,22 +265,24 @@ class DcopAllocator:
         # self.lst = self.lft - duration + 1
         # self.eft = self.est + duration - 1
         task_copy.change_duration(new_duration)
-
+        #EST:  Earliest Start Time
+        #LFT: Latest Finish Time
         l = task_copy.est - 1
         # print("task: ", task_copy, "est: ",task_copy.est)
         if task_copy in self._tasks_preconditions:  # _preconditions -> task:integer
             # print("preconditions: ", self._tasks_preconditions)
+            #This gets the earliest start time that is no earlier than its pc
             l = max(l, self._tasks_preconditions[task_copy] - 1)
 
-            # this round l and r up (integer)
-        l = int(math.ceil(l))  # prev_task.finish_time
-        r = int(math.ceil(task_copy.lft))  # next_task.start_time
+        # this round l and r up (integer)
+        l = int(math.ceil(l))  # Earliest Start Time
+        r = int(math.ceil(task_copy.lft))  # Latest Finish Time
 
         for robot in robots:
             arr = robot.get_bit_schedule(task_copy)  # after running preparation for coalition
             # print("arr: ", arr)
             # print("task_copy.lft: ", task_copy.lft)
-            if len(arr) < task_copy.lft:
+            if len(arr) < task_copy.lft: #if the robot's existing bit schedule is not long enough, extend the array first before we do arr[l:r]
                 padding = [0] * (task_copy.lft - len(arr))
                 arr.extend(padding)
 
@@ -291,6 +292,7 @@ class DcopAllocator:
             bitarrays.append(arr[l:r])
 
         i = utils.find_common_gap_in_bit_schedules(bitarrays, task_copy.duration)
+        #i is the gap between l and common able-to-start time
         print("common gap: ", i)
         if i != -1:
             start_time = l + i + 1  # new start time to perform the collaborated task
