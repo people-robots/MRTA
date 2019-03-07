@@ -140,5 +140,17 @@ def find_common_gap_in_bit_schedules(bitarrays, size):
 
         return -1
 
+def earliest_start_time_for_robot(bitarray, common_start_time):
+    bitarray_list = bitarray.tolist()
+    print(bitarray_list)
+    new_start_time = common_start_time
+    while new_start_time >= 0 and bitarray_list(new_start_time) == 0:
+        new_start_time -= 1
+    if bitarray_list(new_start_time) == 1:
+        return new_start_time + 1
+
+    return new_start_time
+
+
 def compute_task_cost(ms, tt, alpha):
     return ms * alpha + tt * (1 - alpha)

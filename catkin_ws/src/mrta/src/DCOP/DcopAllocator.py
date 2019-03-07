@@ -238,18 +238,26 @@ class DcopAllocator:
             robot_id = part_robots[0].id
             function_utility = self._cost_table[func_id][robot_id][0]        
         elif self._collab and num_of_robots > 1:            
-            total_cost, start_time = self._calc_coalition_cost(part_robots, task)
+            # total_cost, start_time = self._calc_coalition_cost(part_robots, task)
+            # if total_cost > 0:
+            #     function_utility = 1/total_cost
+            #     if task.id not in self._task_start_times:
+            #         self._task_start_times[task.id] = {}
+            #     self._task_start_times[task.id][part_robot_ids] = start_time
+            total_cost, start_time_array = self._calc_coalition_cost(part_robots, task)
             if total_cost > 0:
-                function_utility = 1/total_cost                
-                if task.id not in self._task_start_times:    
-                    self._task_start_times[task.id] = {}        
-                self._task_start_times[task.id][part_robot_ids] = start_time
-                    
+                function_utility = 1/total_cost
+                if task.id not in self._task_start_times:
+                    self._task_start_times[task.id] = {}
+                self._task_start_times[task.id][part_robot_ids] = start_time_array
+        #TODO: check what "self._task_start_times[task.id][part_robot_ids]" is used for and which effect it has when start_time is changed to an array
+
         return function_utility
 
     def _calc_coalition_cost(self, robots, task):
         coalition_cost = utils.NEG_INF
         start_time = -1
+        start_time_array = []
         bitarrays = []
         task_copy = deepcopy(task)
         new_duration = task_copy.duration / len(robots)  # this needs to be changed since not every robot will have same duration
@@ -293,25 +301,45 @@ class DcopAllocator:
 
         i = utils.find_common_gap_in_bit_schedules(bitarrays, task_copy.duration)
         #i is the gap between l and common able-to-start time
-        print("common gap: ", i)
+        # print("common gap: ", i)
         if i != -1:
             start_time = l + i + 1  # new start time to perform the collaborated task
             max_ms = utils.NEG_INF
             total_tt = 0
-
+            total_saved_time = 0
             num_of_robots = len(robots)
             for robot in robots:
-                ms, tt = robot.get_ms_tt(task_copy, self._tasks_preconditions, start_time)
+                arr = robot.get_bit_schedule(task_copy)  # after running preparation for coalition
+                start_time_own = utils.earliest_start_time_for_robot(arr, start_time)
+                total_saved_time += start_time - start_time_own
+            print(total_saved_time)
+            duration_after_saving = new_duration - total_saved_time / len(robots)
+            for robot in robots:
+                arr = robot.get_bit_schedule(task_copy)  # after running preparation for coalition
+                start_time_own = utils.earliest_start_time_for_robot(arr, start_time)
+                start_time_array.append(start_time_own)
+                duration_own = duration_after_saving + start_time - start_time_own
+                task_own = deepcopy(task_copy)
+                task_own.change_duration(duration_own)
+                ms, tt = robot.get_ms_tt(task_own, self._tasks_preconditions, start_time_own)
                 # ms is the updated makespan (after the collaborated task), tt is the addtional travel time
                 if ms != None and tt != None:
                     max_ms = max(ms, max_ms)
                     total_tt += tt
 
+            # for robot in robots:
+            #     ms, tt = robot.get_ms_tt(task_copy, self._tasks_preconditions, start_time)
+            #     # ms is the updated makespan (after the collaborated task), tt is the addtional travel time
+            #     if ms != None and tt != None:
+            #         max_ms = max(ms, max_ms)
+            #         total_tt += tt
+
             if max_ms != utils.NEG_INF and total_tt != 0:
                 coalition_cost = utils.compute_task_cost(max_ms, total_tt, self._alpha)
                 # ms * alpha + tt * (1 - alpha)
 
-        return coalition_cost, start_time
+        # return coalition_cost, start_time
+        return coalition_cost, start_time_array
 
     # problem with fixing coalition:
     # 1. task duration is calculated before and is the same for all collaborating robots (line 262 and line 274)
