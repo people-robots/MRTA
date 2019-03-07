@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e5928d45-2ac4-44a4-9592-7db54cc7514d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catkin_ws/src/mrta/src/BitSchedule.py" beforeDir="false" afterPath="$PROJECT_DIR$/catkin_ws/src/mrta/src/BitSchedule.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/catkin_ws/src/mrta/src/DCOP/DcopAllocator.py" beforeDir="false" afterPath="$PROJECT_DIR$/catkin_ws/src/mrta/src/DCOP/DcopAllocator.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/catkin_ws/src/mrta/src/utils.py" beforeDir="false" afterPath="$PROJECT_DIR$/catkin_ws/src/mrta/src/utils.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/catkin_ws/src/mrta/src/Task.py" beforeDir="false" afterPath="$PROJECT_DIR$/catkin_ws/src/mrta/src/Task.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -16,8 +18,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/catkin_ws/src/mrta/src/DCOP/DcopAllocator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="38">
-              <caret line="316" selection-start-line="316" selection-end-line="316" />
+            <state relative-caret-position="201">
+              <caret line="297" column="36" lean-forward="true" selection-start-line="297" selection-start-column="36" selection-end-line="297" selection-end-column="36" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -28,8 +30,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/catkin_ws/src/mrta/src/utils.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="302">
-              <caret line="138" column="18" lean-forward="true" selection-start-line="138" selection-start-column="18" selection-end-line="138" selection-end-column="18" />
+            <state relative-caret-position="396">
+              <caret line="135" column="24" selection-start-line="135" selection-start-column="20" selection-end-line="135" selection-end-column="24" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -104,7 +106,6 @@
       <find>idle</find>
       <find>get_bit</find>
       <find>prepare_for_coalition</find>
-      <find>part_robot_id</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -116,7 +117,6 @@
         <option value="$PROJECT_DIR$/catkin_ws/src/mrta/src/BitSchedule.py" />
         <option value="$PROJECT_DIR$/catkin_ws/src/mrta/src/Task.py" />
         <option value="$PROJECT_DIR$/catkin_ws/src/mrta/src/Robot.py" />
-        <option value="$PROJECT_DIR$/catkin_ws/src/mrta/src/utils.py" />
         <option value="$PROJECT_DIR$/catkin_ws/src/mrta/src/DCOP/DcopAllocator.py" />
       </list>
     </option>
@@ -213,12 +213,12 @@
       <updated>1551430457164</updated>
       <workItem from="1551430458762" duration="2112000" />
       <workItem from="1551692029284" duration="606000" />
-      <workItem from="1551924172933" duration="8549000" />
+      <workItem from="1551924172933" duration="6415000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="11267000" />
+    <option name="totallyTimeSpent" value="9133000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="4" y="23" width="1280" height="717" extended-state="0" />
@@ -301,8 +301,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/catkin_ws/src/mrta/src/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="302">
-          <caret line="138" column="18" lean-forward="true" selection-start-line="138" selection-start-column="18" selection-end-line="138" selection-end-column="18" />
+        <state relative-caret-position="396">
+          <caret line="135" column="24" selection-start-line="135" selection-start-column="20" selection-end-line="135" selection-end-column="24" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
@@ -311,8 +311,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/catkin_ws/src/mrta/src/DCOP/DcopAllocator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="316" selection-start-line="316" selection-end-line="316" />
+        <state relative-caret-position="201">
+          <caret line="297" column="36" lean-forward="true" selection-start-line="297" selection-start-column="36" selection-end-line="297" selection-end-column="36" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
