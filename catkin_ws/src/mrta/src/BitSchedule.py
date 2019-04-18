@@ -33,6 +33,8 @@ class BitSchedule():
         self._bit_arr.extend(arr)
 
     def prepare_for_coalition(self, task):
+        #The purpose of this function is to loop over current task schedule and try to sqeeze new task in between every existing tasks.
+        #Later DCOP allocator will calculate common gap and decide which gap to insert the task
         #print(str(self._bit_arr))
         for i in range(self.task_count+1):
             prev_task = self._tasks[i]

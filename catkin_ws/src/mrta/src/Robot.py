@@ -190,7 +190,7 @@ class Robot():
             stn_copy = deepcopy(self.stn)
             tt_before = stn_copy.total_travel_time
             stn_copy.insert_task(task_copy, i)
-            stn_copy.solve_stn(pc)
+            stn_copy.solve_stn(pc)              
             tt_after = stn_copy.total_travel_time
 
             if stn_copy.is_consistent():
@@ -233,26 +233,16 @@ class Robot():
         if (pos is None) and (time is None):
             self.logger("Robot {0} ADD TASK: Either pos or time needs to be given, not both.".format(self.id))
             return
-        # print("during adding1")
-        # print(self.stn)
-        #Here the new task is not added yet
+
         if time is not None:
-            # print("robot", self.id, "start inserting using time:", time)
             self.stn.insert_task(task, time=time)
         else:
-            # print("robot", self.id, "start inserting using pos:", pos)
             self.stn.insert_task(task, index=pos)
-        # print("during adding2")
-        # print(self.stn)
-        #Here the new task is added but start and end times are 0
-        self.stn.solve_stn(pc)
-        # print("during adding3")
-        # print(self.stn)
-        #Here start and end time is updated
+
+        self.stn.solve_stn(pc)        
         self._bit_schedule = BitSchedule(self.init_pos, self.speed, self.logger, stn=self.stn)        
-        # print("during adding4")
-        # print(self.stn)
-    def get_bit_schedule(self, new_task):
+
+    def get_bit_schedule(self, new_task=None):
         schedule_copy = deepcopy(self._bit_schedule)
         if new_task is None:
             return schedule_copy

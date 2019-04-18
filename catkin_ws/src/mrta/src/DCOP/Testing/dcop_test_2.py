@@ -45,10 +45,10 @@ if __name__ == "__main__":
     exec_time1 = (af - bf).total_seconds()
 
     ms, tt, st = utils.calculate_stats([schedules])
-    print ("makespan: " + str(ms))
-    print ("time travelled: " + str(tt))
-    print ("tasks scheduled: " + str(st))
-    print ("exec time: " + str(exec_time1))
+    print "makespan: " + str(ms)
+    print "time travelled: " + str(tt)
+    print "tasks scheduled: " + str(st)
+    print "exec time: " + str(exec_time1)
     utils.print_schedules([schedules], 'DCOP')
 
     

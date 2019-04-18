@@ -33,17 +33,12 @@ class STN(object):
     def insert_task(self, task, index=None, time=None):
         if time is not None:
             index = self.task_count
-            # print("in stn --------------------")
             for i in range(self.task_count):
                 t = self._get_task(index=i)
-                # print(t)
-                # print(task)
                 if time <= t.finish_time:
-                # if time < t.start_time - task.duration:
-                    # print(time, t.id)
                     index = i
-                    break
-            # print("t&task finished printing, index:", index)
+                    break 
+
         if index is None:
             index = self.task_count
         
@@ -55,17 +50,13 @@ class STN(object):
         start_node_id = str(task.id) + 's'
         end_node_id = str(task.id) + 'e'
         zero_node_id = self._get_node(-1)[0]
-        # print("ids", start_node_id, end_node_id, zero_node_id)
-        # print("check")
-        # # print(task)
-        # print(str(self))
 
         self._digraph.add_node(start_node_id, type='start', task=task, index=index)
         self._digraph.add_node(end_node_id, type='end', index=index)
 
         self._add_temporal_constraint(zero_node_id, start_node_id, task.lst, task.est)
         self._add_temporal_constraint(zero_node_id, end_node_id, task.lft, task.eft)
-        self._add_temporal_constraint(start_node_id, end_node_id, task.duration, task.duration)
+        self._add_temporal_constraint(start_node_id, end_node_id, task.duration, task.duration)                
 
         additional_travel_time = 0
 
@@ -90,12 +81,8 @@ class STN(object):
     def is_consistent(self):
         """
         Returns whether a Simple Temporal Network is consistent.
-        """
-        # if self.task_count <= 0:
-        #     return True
-        # print("count: ", self.task_count)
-
-        for i in range(self.task_count - 1):
+        """        
+        for i in range(self.task_count):
             if self._get_task(i).start_time == float('inf'):
                 return False
 
@@ -107,30 +94,21 @@ class STN(object):
         
         for i in range(self.task_count):
             cur_task = self._get_task(i)
-            pre_task = self._get_task(i-1)
-            # if i < 1:
-            #     continue
-            # if cur_task is None or pre_task is None:
-            #     continue
+            pre_task = self._get_task(i-1)        
+          
             travel_time = int(math.ceil(self._compute_travel_time(cur_task.location, pre_task.location)))
             if cur_task in preconditions:
                 start_time = max(preconditions[cur_task], cur_task.est, pre_task.finish_time + travel_time + 1)
-                # print(cur_task.id, "start_time cur_task in pc", start_time)
-                # print(cur_task.id, "pc:", preconditions[cur_task], "travel time: ", travel_time)
             else:
                 start_time = max(cur_task.est, pre_task.finish_time + travel_time + 1)
-                # print(cur_task.id, "start_time cur_task not in pc", start_time, "travel time: ", travel_time)
 
             cur_task.start_time = start_time if start_time <= cur_task.lst else float('inf')  
             cur_task.finish_time = cur_task.start_time + cur_task.duration - 1
-            # print(cur_task.id, "-------------------------------------cur_task fianl start_time:", cur_task.start_time)
+
     def get_makespan(self):
         if self.task_count <= 0:
             return 0
-        # print(self.get_all_tasks())
-        # print("count: ", self.task_count)
-        # print("len: ", len(self.get_all_tasks()))
-        # print("cur: ", self._get_task(self.task_count - 1))
+
         return self._get_task(self.task_count - 1).finish_time    
 
     def update_task_constraints(self, task_id):
@@ -159,8 +137,6 @@ class STN(object):
             bit_arr.extend([1] * tt)
             arrival_time = prev_task.finish_time + tt            
             idle_time = task.start_time - arrival_time - 1
-            # if type(idle_time) is float:
-            #     idle_time = 100000000
             bit_arr.extend([0] * idle_time)
             bit_arr.extend([1] * task.duration)
         return bit_arr

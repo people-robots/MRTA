@@ -72,7 +72,6 @@ class MSumOperator:
             It computes the q-message, given the normalization factor alpha and the list 
             of r-messages
         '''
-        # return None
         if len(rmessages) == 0:
             return None                        
         
@@ -116,8 +115,8 @@ class MSumOperator:
         alpha = alpha / qmessage.size()
         
         return alpha
-
-
+     
+    
     def computeZ(self, x, rmessages):
         '''
             x: NodeVariable respect to which calculate Z function (Z is the "sum message" of each Qmessage)

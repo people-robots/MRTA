@@ -6,10 +6,10 @@ class Task(object):
         self.id = _id
         self.start_time = 0
         self.finish_time = 0
-        self.est = est
+        self.est = est                  #Earliest Start Time
         self.lst = lft - duration + 1
         self.eft = est + duration - 1    
-        self.lft = lft             
+        self.lft = lft                  #Latest Finish Time
         self.duration = duration
         self.location = (pos_x, pos_y)
         self.type = _type
