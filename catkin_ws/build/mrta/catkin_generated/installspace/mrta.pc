@@ -1,0 +1,8 @@
+prefix=/home/kimwang/Desktop/MRTA-devel/catkin_ws/install
+
+Name: mrta
+Description: Description of mrta
+Version: 0.0.0
+Cflags: -I/home/kimwang/Desktop/MRTA-devel/catkin_ws/install/include
+Libs: -L/home/kimwang/Desktop/MRTA-devel/catkin_ws/install/lib 
+Requires: rospy message_runtime

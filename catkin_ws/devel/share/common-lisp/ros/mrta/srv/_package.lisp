@@ -1,0 +1,10 @@
+(cl:defpackage mrta-srv
+  (:use )
+  (:export
+   "TERMINATEROBOT"
+   "<TERMINATEROBOT-REQUEST>"
+   "TERMINATEROBOT-REQUEST"
+   "<TERMINATEROBOT-RESPONSE>"
+   "TERMINATEROBOT-RESPONSE"
+  ))
+

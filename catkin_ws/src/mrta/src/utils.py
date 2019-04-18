@@ -120,14 +120,21 @@ def compute_travel_time(pos1, pos2, speed):
 
 def find_common_gap_in_bit_schedules(bitarrays, size):
         arr_len = len(bitarrays[0])
-        common_time_slot = bitarray([0] * arr_len)        
+        # print("bitarrays[0] type: ", type(bitarrays[0]))
+        # print("bitarray[0]: ", bitarrays[0])
+        # print("bitarrays:", bitarrays)
+        common_time_slot = bitarray([0] * arr_len)
+        # print("common_time_slot type: ", (type(common_time_slot)))
         for arr in bitarrays:
+            # print("common_time_slot", common_time_slot)
             common_time_slot = common_time_slot | arr
         common_time_slot = common_time_slot.tolist()
+        # print("common_time_slot after tolist: ", common_time_slot)
 
         n = 0
         i = 0        
         for b in common_time_slot:
+            # print("b:", b)
             if b == 0:
                 n += 1
             else:
@@ -139,6 +146,20 @@ def find_common_gap_in_bit_schedules(bitarrays, size):
             i += 1
 
         return -1
+
+# def earliest_start_time_for_robot(bitarray, common_start_time):
+#     # print("bitarray: ", bitarray)
+#     # print("bitarray type: ", type(bitarray))
+#     bitarray_list = bitarray.tolist()
+#     # print("bitarray_list: ", bitarray_list)
+#     new_start_time = common_start_time
+#     # print("start time: ", new_start_time)
+#     while new_start_time >= 0 and bitarray_list[new_start_time] == 0:
+#         new_start_time -= 1
+#     if bitarray_list(new_start_time) == 1:
+#         return new_start_time + 1
+#
+#     return new_start_time
 
 def compute_task_cost(ms, tt, alpha):
     return ms * alpha + tt * (1 - alpha)

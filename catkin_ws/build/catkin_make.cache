@@ -1,0 +1,2 @@
+mrta:multi_robot_2dnav
+-DCATKIN_DEVEL_PREFIX=/home/kimwang/Desktop/MRTA-devel/catkin_ws/devel -DCMAKE_INSTALL_PREFIX=/home/kimwang/Desktop/MRTA-devel/catkin_ws/install -G Unix Makefiles

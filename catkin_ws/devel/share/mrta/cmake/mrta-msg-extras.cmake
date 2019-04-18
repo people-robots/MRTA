@@ -1,0 +1,2 @@
+set(mrta_MESSAGE_FILES "/home/kimwang/Desktop/MRTA-devel/catkin_ws/src/mrta/msg/Task.msg;/home/kimwang/Desktop/MRTA-devel/catkin_ws/src/mrta/msg/AuctionRequest.msg;/home/kimwang/Desktop/MRTA-devel/catkin_ws/src/mrta/msg/AuctionAck.msg;/home/kimwang/Desktop/MRTA-devel/catkin_ws/src/mrta/msg/Bid.msg;/home/kimwang/Desktop/MRTA-devel/catkin_ws/src/mrta/msg/Winner.msg;/home/kimwang/Desktop/MRTA-devel/catkin_ws/src/mrta/msg/ScheduledTasks.msg")
+set(mrta_SERVICE_FILES "/home/kimwang/Desktop/MRTA-devel/catkin_ws/src/mrta/srv/TerminateRobot.srv")
