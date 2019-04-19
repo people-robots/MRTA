@@ -30,7 +30,7 @@ class DataGenerator:
 
         tasks = []
         dur_start = 20
-        dur_end = 40
+        dur_end = 24
         duration = random.randint(dur_start, dur_end)
         print(""
               ""

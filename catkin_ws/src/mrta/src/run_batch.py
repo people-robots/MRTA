@@ -159,8 +159,8 @@ if __name__ == "__main__":
         default=1,
         action='store')
 
-    robot_count_arr = [2]
-    task_count_arr = [5]
+    robot_count_arr = [4]
+    task_count_arr = [30]
     alpha_arr = [0.15]
     beta_arr = [0.5]
     # robot_count_arr = [6]

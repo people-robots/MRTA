@@ -150,6 +150,7 @@ def create_DCop2():
     nodefunction2.getFunction().addParametersCost([NodeArgument(2), NodeArgument(-2), NodeArgument(2)], 57)
     nodefunction2.getFunction().addParametersCost([NodeArgument(2), NodeArgument(2), NodeArgument(2)], 58)
 
+
     print(nodefunction1.getFunction().getCostValues())
     print(nodefunction2.getFunction().getCostValues())
 
@@ -180,70 +181,52 @@ def create_DCop():
 
     agent1 = Agent(1)
     agent2 = Agent(2)
-    agent3 = Agent(3)
-    agent4 = Agent(4)
-    agents = [agent1, agent2, agent3, agent4]
+    agents = [agent1, agent2]
 
     nodeVariable1 = NodeVariable(1)
     nodeVariable2 = NodeVariable(2)
 
 
-    nodeVariable1.addDomain([1, -1, 2, -2])  # robot1 can do task 1 or -1
-    nodeVariable2.addDomain([2, -2, 3, -3])
+    nodeVariable1.addDomain([1, -1])  # robot1 can do task 1 or -1
+    nodeVariable2.addDomain([1, -1])
 
     nodefunction1 = NodeFunction(1)
-    nodefunction2 = NodeFunction(2)
-    nodefunction3 = NodeFunction(3)
 
     nodefunction1.setFunction(TabularFunction())
-    nodefunction2.setFunction(TabularFunction())
-    nodefunction3.setFunction(TabularFunction())
 
     nodeVariable1.addNeighbour(nodefunction1)
-    nodeVariable1.addNeighbour(nodefunction2)
-    nodeVariable2.addNeighbour(nodefunction2)
-    nodeVariable2.addNeighbour(nodefunction3)
+    nodeVariable2.addNeighbour(nodefunction1)
 
 
     nodefunction1.addNeighbour(nodeVariable1)
-    nodefunction2.addNeighbour(nodeVariable1)
-    nodefunction2.addNeighbour(nodeVariable2)
-    nodefunction3.addNeighbour(nodeVariable2)
+    nodefunction1.addNeighbour(nodeVariable2)
 
     # NodeArgument is a possible NodeVariable's value
     # function is task, variable is robot; agent=???
     # taks1 -> robot1
     # task2 -> robot1, robot2
     # task3 -> robot2
-    nodefunction1.getFunction().addParametersCost([NodeArgument(1)], 10)
-    nodefunction1.getFunction().addParametersCost([NodeArgument(2)], 0)
 
-    nodefunction2.getFunction().addParametersCost([NodeArgument(1), NodeArgument(2)], 4)
-    nodefunction2.getFunction().addParametersCost([NodeArgument(1), NodeArgument(3)], 0)
-    nodefunction2.getFunction().addParametersCost([NodeArgument(2), NodeArgument(2)], 17)
-    nodefunction2.getFunction().addParametersCost([NodeArgument(2), NodeArgument(3)], 5)
+    nodefunction1.getFunction().addParametersCost([NodeArgument(-1), NodeArgument(-1)], -100000)
+    nodefunction1.getFunction().addParametersCost([NodeArgument(-1), NodeArgument(1)], 0.0160744478407)
+    nodefunction1.getFunction().addParametersCost([NodeArgument(1), NodeArgument(-1)], 0.0140725087427)
+    nodefunction1.getFunction().addParametersCost([NodeArgument(1), NodeArgument(1)],  0.0012481234778)
 
-
-    nodefunction3.getFunction().addParametersCost([NodeArgument(2)], 0)
-    nodefunction3.getFunction().addParametersCost([NodeArgument(3)], 8)
-
-
-    print(nodefunction1.getFunction().getCostValues())
-    print(nodefunction2.getFunction().getCostValues())
+    print("----------------- print result ----------------")
+    print(nodefunction1.getFunction().toString())
 
     nodeVariables.append(nodeVariable1)
     nodeVariables.append(nodeVariable2)
 
 
     nodeFunctions.append(nodefunction1)
-    nodeFunctions.append(nodefunction2)
-    nodeFunctions.append(nodefunction3)
+
 
     agent1.addNodeVariable(nodeVariable1)
     agent2.addNodeVariable(nodeVariable2)
 
     agent1.addNodeFunction(nodefunction1)
-    agent2.addNodeFunction(nodefunction2)
+    # agent2.addNodeFunction(nodefunction1)
 
     cop = COP_Instance(nodeVariables, nodeFunctions, agents)
 
@@ -255,7 +238,7 @@ if __name__ == "__main__":
     cop = create_DCop2()
     ms = MaxSum(cop, "max")
     ms.setUpdateOnlyAtEnd(False) 
-    ms.setIterationsNumber(1)
+    ms.setIterationsNumber(3)
     ms.solve_complete()
 
     result = ms.get_results(True)

@@ -262,14 +262,17 @@ class MSumOperator:
         return self.postservice.getReport()
     
     
-    def updateZ(self, x, ps):  
+    def updateZ(self, x, ps, set):
         '''
             x: NodeVariable respect to which calculate Z function(sum of all q-messages)
             Sum the incoming qmessages 
         '''      
         self.report = ""
-        
-        zValue = self.computeZ(x,ps.getMessageRToX(x))
+        zValue = dict()
+        if len(set) == 0:
+            zValue = self.computeZ(x,ps.getMessageRToX(x))
+        else:
+            zValue = {set[0]: set[1]}
         ps.setZMessage(x, zValue)
         self.report = self.report + ps.getReport()
         

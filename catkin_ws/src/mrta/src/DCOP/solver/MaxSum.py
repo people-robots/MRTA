@@ -277,11 +277,31 @@ class MaxSum:
                         updating in each iteration
                     '''
                     self.report = self.report + "\n"
-                    
-                    agent.updateZMessages()
-                    self.report = self.report + agent.getReport() + "\n\n"
-                    
-                    agent.updateVariableValue()
+
+                    if len(self.cop.getNodeFunctions()) == 1:
+                        only_function = self.cop.factorgraph.nodefunctions[0]
+                        only_function_id = only_function.function_id
+                        largest_utility = only_function.functionEvaluator.maxCost
+                        agent.updateZMessages([only_function_id, largest_utility])
+                        self.report = self.report + agent.getReport() + "\n\n"
+                        node_variable = [var for var in agent.variables if agent.agent_id == var.id_var][0]
+                        index = only_function.params.index(node_variable)
+                        participate = False
+                        for entry in only_function.functionEvaluator.costTable:
+                            nodeArguments = entry.getArray()
+                            utility_value = only_function.functionEvaluator.costTable[entry]
+                            if utility_value == largest_utility:
+                                status_value = nodeArguments[index].getValue()
+                                if status_value > 0:
+                                    participate = True
+                                    break
+                        if participate:
+                            for x in agent.getVariables():
+                                x.index_actual_argument = 0
+                    else:
+                        agent.updateZMessages([])
+                        self.report = self.report + agent.getReport() + "\n\n"
+                        agent.updateVariableValue()
                     self.report = self.report + agent.getReport() + "\n"
                     
                     '''
