@@ -124,7 +124,7 @@ def log_results(all_schedules1, all_schedules2, beta, alpha, task_count, robot_c
     if len(all_schedules2) > 0:
         ms2, tt2, st2, it2, ted2 = calculate_stats(all_schedules2)
 
-    print_schedules(all_schedules1, all_schedules2)
+   # print_schedules(all_schedules1, all_schedules2)
     '''print("robot count: {0}, tast count: {1}, num of pgraphs: {2}".format(robot_count, task_count, num_of_pgraphs))
     print("alpha: {0}, beta: {1}".format(alpha, beta))
     print("comment: {0}".format(comment))'''
@@ -159,9 +159,9 @@ if __name__ == "__main__":
         default=1,
         action='store')
 
-    robot_count_arr = [4]
-    task_count_arr = [30]
-    alpha_arr = [0.15]
+    robot_count_arr = [2]
+    task_count_arr = [6]
+    alpha_arr = [0.7]
     beta_arr = [0.5]
     # robot_count_arr = [6]
     # task_count_arr = [30]

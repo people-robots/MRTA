@@ -6,6 +6,7 @@ Created on 22 apr 2017
 @author: Andrea Montanari
 
 This is class manages a r-message
+Message from function to robot.
 '''
 
 import sys, os

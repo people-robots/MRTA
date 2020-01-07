@@ -158,8 +158,8 @@ class PrecedenceGraph:
         self._update_first_layer()
         self._update_second_layer()
         self._update_hidden_layer()
-        for n in self._nodes:
-            print("id",n.task.id, "children:", [c.task.id for c in n.children])
+        #for n in self._nodes:
+         #   print("id",n.task.id, "children:", [c.task.id for c in n.children])
 
 
     def _update_first_layer(self):

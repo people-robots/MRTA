@@ -180,7 +180,7 @@ class Robot():
 
         return True    
 
-    def get_best_cost(self, task, pc):        
+    def get_best_cost(self, task, pc):  # pc -precondition or previous tasks
         task_count = self.stn.task_count
         min_cost = float("inf")         
         min_pos = None

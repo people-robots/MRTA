@@ -5,7 +5,7 @@ Created on 22 apr 2017
 
 @author: Andrea Montanari
 
-This is class manages a q-message
+This is class manages a q-message. Message from robot to function
 '''
 
 import sys, os

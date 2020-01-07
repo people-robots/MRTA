@@ -284,8 +284,15 @@ class MaxSum:
                         largest_utility = only_function.functionEvaluator.maxCost
                         agent.updateZMessages([only_function_id, largest_utility])
                         self.report = self.report + agent.getReport() + "\n\n"
-                        node_variable = [var for var in agent.variables if agent.agent_id == var.id_var][0]
-                        index = only_function.params.index(node_variable)
+                        node_variable_index = [var for var in agent.variables if agent.agent_id == var.id_var]
+                        #index = only_function.params.index(node_variable)
+                        try:
+                            node_variable = [var for var in agent.variables if agent.agent_id == var.id_var][0]
+                            index = only_function.params.index(node_variable)
+                        except:
+                            # print(node_variable_index)
+                            index = -1
+                        # index = only_function.params.index(node_variable)
                         participate = False
                         for entry in only_function.functionEvaluator.costTable:
                             nodeArguments = entry.getArray()
@@ -382,7 +389,7 @@ class MaxSum:
             save the final report on file
         '''
         #self.stringToFile(self.report, self.reportpath)  
-        print(self.report)
+        #print(self.report)
     # def get_results(self, collab=False):
     def get_results(self, collab):
 

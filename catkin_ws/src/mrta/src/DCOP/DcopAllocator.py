@@ -69,10 +69,14 @@ class DcopAllocator2:
                 self.logger.debug("Creating dcop for {0} tasks.".format(len(cur_tasks)))
                 for task in cur_tasks:
                     self.logger.debug(str(task))
+                    print("Creating dcop for {0} tasks.".format(len(cur_tasks)))
+                    print(str(task))
 
                 dcop = self.create_dcop(deepcopy(cur_tasks), robots, is_hetero)
                 self.logger.debug("Dcop created. Now solving dcop.")
+                print("Dcop created. Now solving dcop.")
                 self.logger.debug("Cost Table: {0}".format(str(self._cost_table)))
+                print("Cost Table: {0}".format(str(self._cost_table)))
 
                 if dcop is None:
                     cur_tasks.clear()
@@ -81,6 +85,7 @@ class DcopAllocator2:
 
                 ms = self.solve_dcop(dcop)
                 results = ms.get_results(self._collab)
+                print("results of solved DCOP" )
                 print(results)
                 self.logger.debug("Dcop solved.")
 
@@ -92,6 +97,7 @@ class DcopAllocator2:
                 scheduled_tasks = set()
                 unscheduled_tasks = set()
                 task_ids = set(results.values())
+
 
                 if len([t for t in task_ids if t != 0]) == 0:
                     print
@@ -105,6 +111,7 @@ class DcopAllocator2:
                     if task_id > 0:
                         robot_ids = tuple(sorted([r for r, t in results.iteritems() if t == task_id]))
                         scheduled_task = [task for task in cur_tasks if task.id == task_id][0]
+                        print(scheduled_task)
                         start_time = None
 
                         if len(robot_ids) > 1:
@@ -155,6 +162,7 @@ class DcopAllocator2:
         schedules = []
         for robot in robots:
             schedules.append(robot.stn)
+            print(robot.stn)
 
         return schedules
 
@@ -163,7 +171,10 @@ class DcopAllocator2:
         ms.setUpdateOnlyAtEnd(False)
         ms.setIterationsNumber(3)
         ms.solve_complete()
+
+
         return ms
+
 
     def create_dcop(self, tasks, robots, is_hetero):
         variables = set()
@@ -177,7 +188,7 @@ class DcopAllocator2:
             function = NodeFunction(task.id)
             function.setFunction(TabularFunction())
             functions[task.id] = function
-            random.choice(agents).addNodeFunction(function)
+            random.choice(agents).addNodeFunction(function) #randomly choosing a robot and adding task to it
 
         for robot in robots:
             variable = NodeVariable(robot.id)
@@ -231,8 +242,8 @@ class DcopAllocator2:
                     function.getFunction().addParametersCost(func_args, utility)
 
                     # func_args = [NodeArgument(v) for v in values]
-                print("----------------- print result ----------------")
-                print(function.getFunction().toString())
+               # print("----------------- print result ----------------")
+                #print(function.getFunction().toString())
 
         if len(variables) == 0:
             return None
@@ -281,7 +292,7 @@ class DcopAllocator2:
         if self._limit_collab and len(robots) > 1:
             delta = task_copy.duration ** (1. / 3.)  # cube root
             # print("delta: ", delta)
-            if (task_copy.duration / (len(robots) - 1) - new_duration) < delta:
+            if (task_copy.duration / (len(robots) - 1) - new_duration) < delta**4:
                 return coalition_cost, start_time
 
         # this needs to be changed since not every robot will have same duration

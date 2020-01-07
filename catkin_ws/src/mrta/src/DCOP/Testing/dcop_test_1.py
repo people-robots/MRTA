@@ -120,7 +120,8 @@ def create_DCop2():
     nodefunction2.addNeighbour(nodeVariable4)
 
     #NodeArgument is a possible NodeVariable's value
-    #function is task, variable is robot; agent=???
+    #function is task, variable is robot; agent=Agent controls variables in a COP problem instance.
+    #Agent can control one or more variables or functions
     #taks1 -> robot1, robot3
     #task2 -> robot2, robot3, robot4
 
@@ -150,8 +151,9 @@ def create_DCop2():
     nodefunction2.getFunction().addParametersCost([NodeArgument(2), NodeArgument(-2), NodeArgument(2)], 57)
     nodefunction2.getFunction().addParametersCost([NodeArgument(2), NodeArgument(2), NodeArgument(2)], 58)
 
-
+    print("Node function 1 values: ")
     print(nodefunction1.getFunction().getCostValues())
+    print("Node function 2 values: ")
     print(nodefunction2.getFunction().getCostValues())
 
     nodeVariables.append(nodeVariable1)
@@ -202,7 +204,8 @@ def create_DCop():
     nodefunction1.addNeighbour(nodeVariable2)
 
     # NodeArgument is a possible NodeVariable's value
-    # function is task, variable is robot; agent=???
+    # function is task, variable is robot; agent=Agent controls variables in a COP problem instance.
+    # Agent can control one or more variables or functions
     # taks1 -> robot1
     # task2 -> robot1, robot2
     # task3 -> robot2
@@ -246,7 +249,7 @@ if __name__ == "__main__":
     for variable in result:        
         print (str(variable) + ": " + str(result[variable]))
 
-    #report = ms.getReport()
-    #print report
+    report = ms.getReport()
+    print report
     
     
