@@ -1,0 +1,242 @@
+('duration range:', 40, 80)
+
+-------------------------------------------------------------
+Robot count: 2
+Task count: 5
+Precedence graph count: 10
+Total Tasks: 50
+Alpha: 0.25
+Beta: 0.25
+Number of tasks scheduled(st1, st2): 50 and 50
+Average makespan(DCOP ms1, PIA ms2): 358.1 and 385.7
+Average time travelled(tt1, tt2): 297.6682 and 188.24179
+Average idle time(it1, it2): 24.6159 and 31.279105
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 2
+Task count: 5
+Precedence graph count: 10
+Total Tasks: 50
+Alpha: 0.25
+Beta: 0.75
+Number of tasks scheduled(st1, st2): 50 and 50
+Average makespan(DCOP ms1, PIA ms2): 358.1 and 385.7
+Average time travelled(tt1, tt2): 297.6682 and 188.24179
+Average idle time(it1, it2): 24.6159 and 31.279105
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 2
+Task count: 5
+Precedence graph count: 10
+Total Tasks: 50
+Alpha: 0.75
+Beta: 0.25
+Number of tasks scheduled(st1, st2): 50 and 50
+Average makespan(DCOP ms1, PIA ms2): 374.0 and 336.9
+Average time travelled(tt1, tt2): 368.26468 and 232.94691
+Average idle time(it1, it2): 18.01766 and 24.476545
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 2
+Task count: 5
+Precedence graph count: 10
+Total Tasks: 50
+Alpha: 0.75
+Beta: 0.75
+Number of tasks scheduled(st1, st2): 50 and 50
+Average makespan(DCOP ms1, PIA ms2): 374.0 and 337.2
+Average time travelled(tt1, tt2): 368.26468 and 233.18209
+Average idle time(it1, it2): 18.01766 and 23.308955
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 5
+Task count: 5
+Precedence graph count: 10
+Total Tasks: 50
+Alpha: 0.25
+Beta: 0.25
+Number of tasks scheduled(st1, st2): 50 and 50
+Average makespan(DCOP ms1, PIA ms2): 252.9 and 226.2
+Average time travelled(tt1, tt2): 653.03098 and 119.23706
+Average idle time(it1, it2): 33.253804 and 44.472588
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 5
+Task count: 5
+Precedence graph count: 10
+Total Tasks: 50
+Alpha: 0.25
+Beta: 0.75
+Number of tasks scheduled(st1, st2): 50 and 50
+Average makespan(DCOP ms1, PIA ms2): 252.9 and 226.2
+Average time travelled(tt1, tt2): 653.03098 and 119.23706
+Average idle time(it1, it2): 33.253804 and 44.472588
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 5
+Task count: 5
+Precedence graph count: 10
+Total Tasks: 50
+Alpha: 0.75
+Beta: 0.25
+Number of tasks scheduled(st1, st2): 50 and 50
+Average makespan(DCOP ms1, PIA ms2): 254.4 and 214.4
+Average time travelled(tt1, tt2): 637.72556 and 139.93486
+Average idle time(it1, it2): 23.974888 and 46.193028
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 5
+Task count: 5
+Precedence graph count: 10
+Total Tasks: 50
+Alpha: 0.75
+Beta: 0.75
+Number of tasks scheduled(st1, st2): 50 and 50
+Average makespan(DCOP ms1, PIA ms2): 254.4 and 214.4
+Average time travelled(tt1, tt2): 637.72556 and 139.75031
+Average idle time(it1, it2): 23.974888 and 46.269938
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+('duration range:', 40, 80)
+
+-------------------------------------------------------------
+Robot count: 2
+Task count: 10
+Precedence graph count: 10
+Total Tasks: 100
+Alpha: 0.25
+Beta: 0.25
+Number of tasks scheduled(st1, st2): 100 and 100
+Average makespan(DCOP ms1, PIA ms2): 722.0 and 670.9
+Average time travelled(tt1, tt2): 558.66012 and 349.87677
+Average idle time(it1, it2): 89.91994 and 109.011615
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 2
+Task count: 10
+Precedence graph count: 10
+Total Tasks: 100
+Alpha: 0.25
+Beta: 0.75
+Number of tasks scheduled(st1, st2): 100 and 100
+Average makespan(DCOP ms1, PIA ms2): 722.0 and 683.8
+Average time travelled(tt1, tt2): 558.66012 and 344.29302
+Average idle time(it1, it2): 89.91994 and 113.30349
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 2
+Task count: 10
+Precedence graph count: 10
+Total Tasks: 100
+Alpha: 0.75
+Beta: 0.25
+Number of tasks scheduled(st1, st2): 100 and 100
+Average makespan(DCOP ms1, PIA ms2): 849.4 and 629.5
+Average time travelled(tt1, tt2): 998.35267 and 401.95715
+Average idle time(it1, it2): 19.023665 and 54.371425
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 2
+Task count: 10
+Precedence graph count: 10
+Total Tasks: 100
+Alpha: 0.75
+Beta: 0.75
+Number of tasks scheduled(st1, st2): 100 and 100
+Average makespan(DCOP ms1, PIA ms2): 829.5 and 634.1
+Average time travelled(tt1, tt2): 945.48504 and 407.38018
+Average idle time(it1, it2): 21.30748 and 53.35991
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 5
+Task count: 10
+Precedence graph count: 10
+Total Tasks: 100
+Alpha: 0.25
+Beta: 0.25
+Number of tasks scheduled(st1, st2): 100 and 100
+Average makespan(DCOP ms1, PIA ms2): 555.9 and 430.5
+Average time travelled(tt1, tt2): 1011.83155 and 258.33588
+Average idle time(it1, it2): 169.99369 and 101.072824
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 5
+Task count: 10
+Precedence graph count: 10
+Total Tasks: 100
+Alpha: 0.25
+Beta: 0.75
+Number of tasks scheduled(st1, st2): 100 and 100
+Average makespan(DCOP ms1, PIA ms2): 555.9 and 426.2
+Average time travelled(tt1, tt2): 1011.83155 and 248.14233
+Average idle time(it1, it2): 169.99369 and 100.431534
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 5
+Task count: 10
+Precedence graph count: 10
+Total Tasks: 100
+Alpha: 0.75
+Beta: 0.25
+Number of tasks scheduled(st1, st2): 100 and 100
+Average makespan(DCOP ms1, PIA ms2): 497.6 and 378.6
+Average time travelled(tt1, tt2): 1488.73816 and 315.73535
+Average idle time(it1, it2): 24.912368 and 99.33293
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+
+
+-------------------------------------------------------------
+Robot count: 5
+Task count: 10
+Precedence graph count: 10
+Total Tasks: 100
+Alpha: 0.75
+Beta: 0.75
+Number of tasks scheduled(st1, st2): 100 and 100
+Average makespan(DCOP ms1, PIA ms2): 497.6 and 380.1
+Average time travelled(tt1, tt2): 1488.73816 and 301.623
+Average idle time(it1, it2): 24.912368 and 102.6354
+1 is DCOP with coalition; 2 is PIA
+-------------------------------------------------------------
+

@@ -277,11 +277,38 @@ class MaxSum:
                         updating in each iteration
                     '''
                     self.report = self.report + "\n"
-                    
-                    agent.updateZMessages()
-                    self.report = self.report + agent.getReport() + "\n\n"
-                    
-                    agent.updateVariableValue()
+
+                    if len(self.cop.getNodeFunctions()) == 1:
+                        only_function = self.cop.factorgraph.nodefunctions[0]
+                        only_function_id = only_function.function_id
+                        largest_utility = only_function.functionEvaluator.maxCost
+                        agent.updateZMessages([only_function_id, largest_utility])
+                        self.report = self.report + agent.getReport() + "\n\n"
+                        node_variable_index = [var for var in agent.variables if agent.agent_id == var.id_var]
+                        #index = only_function.params.index(node_variable)
+                        try:
+                            node_variable = [var for var in agent.variables if agent.agent_id == var.id_var][0]
+                            index = only_function.params.index(node_variable)
+                        except:
+                            # print(node_variable_index)
+                            index = -1
+                        # index = only_function.params.index(node_variable)
+                        participate = False
+                        for entry in only_function.functionEvaluator.costTable:
+                            nodeArguments = entry.getArray()
+                            utility_value = only_function.functionEvaluator.costTable[entry]
+                            if utility_value == largest_utility:
+                                status_value = nodeArguments[index].getValue()
+                                if status_value > 0:
+                                    participate = True
+                                    break
+                        if participate:
+                            for x in agent.getVariables():
+                                x.index_actual_argument = 0
+                    else:
+                        agent.updateZMessages([])
+                        self.report = self.report + agent.getReport() + "\n\n"
+                        agent.updateVariableValue()
                     self.report = self.report + agent.getReport() + "\n"
                     
                     '''
@@ -295,13 +322,27 @@ class MaxSum:
                           
                     status = self.stringStatus(i + 1)
                     self.report = self.report + status + "\n\n"
+
                     self.report = self.report + "==============================================================================================\n"
                     self.report = self.report + "==============================================================================================\n"
                     self.report = self.report + "==============================================================================================\n\n"
-                    
-                
+                    # function_list = self.cop.getNodeFunctions()
+                    # agent_robot_id = agent.agent_id
+                    # node_variable = [var for var in agent.variables if agent_robot_id == var.id_var][0]
+                    # current_iteration_result = agent.postservice.zmessages[node_variable]
+                    # choosen_function_id = [key for key in current_iteration_result if current_iteration_result[key] == max(current_iteration_result.values())][0]
+                    # choosen_function = [function for function in function_list if function.function_id == choosen_function_id][0]
+                    # index = choosen_function.params.index(node_variable)
+                    #
+                    # for entry in choosen_function.functionEvaluator.costTable:
+                    #     nodeArguments = entry.getArray()
+                    #     status_value = nodeArguments[index].getValue()
+                    #     if status_value < 0:
+                    #         continue
+                    #     old_value = choosen_function.functionEvaluator.costTable[entry]
+                    #     choosen_function.functionEvaluator.costTable[entry] = 10 * old_value
+
             # pause
-            
             if(keepGoing == False):
                 '''
                     messages not changed!
@@ -348,13 +389,17 @@ class MaxSum:
             save the final report on file
         '''
         #self.stringToFile(self.report, self.reportpath)  
+        #print(self.report)
+    # def get_results(self, collab=False):
+    def get_results(self, collab):
 
-    def get_results(self, collab=False):
         result = {} # { variable_id : function_id }
         for agent in self.cop.getAgents():
             for variable in agent.getVariables():
+                # print(variable.getStateArgument().value)
                 result[variable] = variable.getStateArgument().value
-        
+        # print(result)
+
         if not collab:
             for function_id in set(result.values()):
                 variables = [v for v in result if result[v] == function_id]

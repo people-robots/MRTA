@@ -29,14 +29,23 @@ class DataGenerator:
                 self._logger.error("generate_tasks: The number of task locations is not same as the number of tasks.")
 
         tasks = []
-        duration = random.randint(20, 40)
-
+        dur_start = 800
+        dur_end = 900
+        #duration = 100+random.randint(50,150)
+        duration = random.randint(dur_start, dur_end)
+        print(""
+              ""
+              "duration range:", dur_start, dur_end)
         for i in range(num_of_tasks):
+            duration = random.randint(dur_start, dur_end)
+            #duration  = 200 + random.randint(50,100)
             task_id = i + 1
-            est = random.randint(25, 400)
-            lft = est + random.randint(100, 1200)
+            #est = random.randint(10, 5000*0.5)
+            est = random.randint(100,110)
+            lft = random.randint(1000,1100)
+            #lft = min(est + duration + random.randint(10, 5000),5000)
             task_type = random.choice(self.task_types, 1, p=[0.5, 0.5])[0]
-
+            # print("id", i, "est", est, "lft", lft, "duration", duration)
             if task_locations is not None:
                 pos_x = task_locations[i][0]
                 pos_y = task_locations[i][1]
@@ -44,7 +53,6 @@ class DataGenerator:
                 pos_x, pos_y = self.generate_locations(1)[0]
 
             tasks.append(Task(est, lft, duration, task_id, pos_x, pos_y, task_type))
-        
         return tasks
 
     def generate_locations(self, num_of_locations):

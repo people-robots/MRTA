@@ -72,6 +72,7 @@ class MSumOperator:
             It computes the q-message, given the normalization factor alpha and the list 
             of r-messages
         '''
+        # return None
         if len(rmessages) == 0:
             return None                        
         
@@ -115,8 +116,8 @@ class MSumOperator:
         alpha = alpha / qmessage.size()
         
         return alpha
-     
-    
+
+
     def computeZ(self, x, rmessages):
         '''
             x: NodeVariable respect to which calculate Z function (Z is the "sum message" of each Qmessage)
@@ -261,14 +262,17 @@ class MSumOperator:
         return self.postservice.getReport()
     
     
-    def updateZ(self, x, ps):  
+    def updateZ(self, x, ps, set):
         '''
             x: NodeVariable respect to which calculate Z function(sum of all q-messages)
             Sum the incoming qmessages 
         '''      
         self.report = ""
-        
-        zValue = self.computeZ(x,ps.getMessageRToX(x))
+        zValue = dict()
+        if len(set) == 0:
+            zValue = self.computeZ(x,ps.getMessageRToX(x))
+        else:
+            zValue = {set[0]: set[1]}
         ps.setZMessage(x, zValue)
         self.report = self.report + ps.getReport()
         

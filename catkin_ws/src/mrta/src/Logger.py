@@ -12,19 +12,19 @@ class Logger:
 
     def debug(self, log):
         if self.level >= LogLevel.DEBUG:
-            print log
+            print (log)
 
     def info(self, log):
         if self.level >= LogLevel.INFO:
-            print log
+            print (log)
 
     def warn(self, log):
         if self.level >= LogLevel.WARN:
-            print log
+            print (log)
 
     def error(self, log):
         if self.level >= LogLevel.ERROR:
-            print error
+            print (error)
 
     def special(self, log):
-        print log
+        print(log)
