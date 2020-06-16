@@ -69,14 +69,14 @@ class DcopAllocator2:
                 self.logger.debug("Creating dcop for {0} tasks.".format(len(cur_tasks)))
                 for task in cur_tasks:
                     self.logger.debug(str(task))
-                    print("Creating dcop for {0} tasks.".format(len(cur_tasks)))
-                    print(str(task))
+                   # print("Creating dcop for {0} tasks.".format(len(cur_tasks)))
+                   # print(str(task))
 
                 dcop = self.create_dcop(deepcopy(cur_tasks), robots, is_hetero)
                 self.logger.debug("Dcop created. Now solving dcop.")
-                print("Dcop created. Now solving dcop.")
+                #print("Dcop created. Now solving dcop.")
                 self.logger.debug("Cost Table: {0}".format(str(self._cost_table)))
-                print("Cost Table: {0}".format(str(self._cost_table)))
+                #print("Cost Table: {0}".format(str(self._cost_table)))
 
                 if dcop is None:
                     cur_tasks.clear()
@@ -85,8 +85,8 @@ class DcopAllocator2:
 
                 ms = self.solve_dcop(dcop)
                 results = ms.get_results(self._collab)
-                print("results of solved DCOP" )
-                print(results)
+                #print("results of solved DCOP" )
+                #print(results)
                 self.logger.debug("Dcop solved.")
 
                 if len(results) == 0:
@@ -111,7 +111,7 @@ class DcopAllocator2:
                     if task_id > 0:
                         robot_ids = tuple(sorted([r for r, t in results.iteritems() if t == task_id]))
                         scheduled_task = [task for task in cur_tasks if task.id == task_id][0]
-                        print(scheduled_task)
+                        #print(scheduled_task)
                         start_time = None
 
                         if len(robot_ids) > 1:
@@ -144,8 +144,12 @@ class DcopAllocator2:
                 tasks = set()
                 if self._tighten_schedule:
                     tasks = robot.tighten_schedule()
+                    #print(robot)
+                    #print(tasks)
                 else:
                     tasks = set(robot.stn.get_all_tasks())
+                   # print(robot)
+                    #print(tasks)
 
                 self._p_graph.update_tasks(tasks)
                 self.logger.debug("Robot {0}: Makespan is {1}".format(robot.id, robot.stn.get_makespan()))
@@ -162,14 +166,14 @@ class DcopAllocator2:
         schedules = []
         for robot in robots:
             schedules.append(robot.stn)
-            print(robot.stn)
+            #print(robot.stn)
 
         return schedules
 
     def solve_dcop(self, dcop):
         ms = MaxSum(dcop, "max")
         ms.setUpdateOnlyAtEnd(False)
-        ms.setIterationsNumber(3)
+        ms.setIterationsNumber(3)      #changed this line for test
         ms.solve_complete()
 
 
