@@ -156,11 +156,11 @@ if __name__ == "__main__":
         help='Number of precedence graphs',
         dest='num_of_pgraphs',
         type=int,
-        default=1,
+        default= 25,
         action='store')
 
-    robot_count_arr = [2]
-    task_count_arr = [6]
+    robot_count_arr = [4,6,8]
+    task_count_arr = [100]
     alpha_arr = [0.7]
     beta_arr = [0.5]
     # robot_count_arr = [6]

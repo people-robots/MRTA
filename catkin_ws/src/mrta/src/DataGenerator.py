@@ -21,7 +21,7 @@ class DataGenerator:
     def __init__(self, map_size_x, map_size_y, logger):
         self._map_size = (map_size_x, map_size_y)
         self._logger = logger
-        self.task_types = [1, 2]
+        self.task_types = [1, 2]   # was self.task_types = [1, 2]
 
     def generate_tasks(self, num_of_tasks, task_locations=None):
         if task_locations is not None:
@@ -29,28 +29,28 @@ class DataGenerator:
                 self._logger.error("generate_tasks: The number of task locations is not same as the number of tasks.")
 
         tasks = []
-        dur_start = 800
-        dur_end = 900
-        #duration = 100+random.randint(50,150)
+        dur_start = 100
+        dur_end = 1000
+
         duration = random.randint(dur_start, dur_end)
         print(""
               ""
               "duration range:", dur_start, dur_end)
         for i in range(num_of_tasks):
             duration = random.randint(dur_start, dur_end)
-            #duration  = 200 + random.randint(50,100)
             task_id = i + 1
-            #est = random.randint(10, 5000*0.5)
-            est = random.randint(100,110)
-            lft = random.randint(1000,1100)
-            #lft = min(est + duration + random.randint(10, 5000),5000)
-            task_type = random.choice(self.task_types, 1, p=[0.5, 0.5])[0]
+            est = random.randint(10, 7500*0.25)
+            #est = random.randint(100,110) #parameters for tight test
+            #lft = random.randint(1000,1100) #parameters for tight test
+            lft = min(est + duration + random.randint(10, 7500),7500)
+            task_type = random.choice(self.task_types, 1, p=[0.5,0.5])[0]  # was p = [0.5, 0.5]
             # print("id", i, "est", est, "lft", lft, "duration", duration)
             if task_locations is not None:
                 pos_x = task_locations[i][0]
                 pos_y = task_locations[i][1]
             else:
                 pos_x, pos_y = self.generate_locations(1)[0]
+                #pos_x, pos_y = self.generate_clustered_locations(1)[0]
 
             tasks.append(Task(est, lft, duration, task_id, pos_x, pos_y, task_type))
         return tasks
@@ -61,6 +61,19 @@ class DataGenerator:
             pos_x = random.randint(0, self._map_size[0])
             pos_y = random.randint(0, self._map_size[1])
             locations.append((pos_x, pos_y))
+        return locations
+    def generate_clustered_locations(self, num_of_locations):
+        locations = []
+        for i in range(num_of_locations):
+            randFactor = random.uniform()
+            if(randFactor<=0.5):
+                pos_x = random.randint(10,30)
+                pos_y = random.randint(10,30)
+                locations.append((pos_x, pos_y))
+            else:
+                pos_x = random.randint(70,95)
+                pos_y = random.randint(70,95)
+                locations.append((pos_x, pos_y))
         return locations
 
     def generate_pgraph(self, tasks, max_num_of_edges):
@@ -94,19 +107,25 @@ class DataGenerator:
             p_graph = self.generate_pgraph(tasks, max_num_of_edges)
             p_graphs.append(p_graph)
 
-        return p_graphs  
+        return p_graphs
+
+    def inRange(self,low,high,num):
+        if low < num  and num <= high:
+            return True
+        else:
+            return False
 
     def generate_robots(self, num_of_robots, robot_speed):
         locations = self.generate_locations(num_of_robots)          
         robots = []
         task_types = [1,2]
+        #task_types = [1,2,3,4]   # was task_types = [1, 2]
 
         for i in range(num_of_robots):
             robot_id = i + 1
             capability = set()
             ran = random.uniform()
-
-            #first robot capable of doing all tasks
+            # first robot capable of doing all tasks
             if i == 0 or ran > 0.66:
                 capability = set(task_types)
             elif ran > 0.33:
@@ -114,14 +133,71 @@ class DataGenerator:
             else:
                 capability.add(task_types[1])
 
-            robot = Robot(robot_id, locations[i][0], locations[i][1], capability, robot_speed, self._logger)            
+            robot = Robot(robot_id, locations[i][0], locations[i][1], capability, robot_speed, self._logger)
             robots.append(robot)
 
         return robots
 
+    """
+            if i == 0 or (0.0 < ran and ran <= 0.07) == True:
+                capability = set(task_types)
+            elif (0.07 < ran and ran <= 0.13) == True:
+                capability.add(task_types[0])
+            elif (0.13 < ran and 0.2 <= ran) == True:
+                capability.add(task_types[1])
+            elif (0.2 < ran and 0.26 <= ran) == True:
+                capability.add(task_types[2])
+            elif (0.26 < ran and 0.33 <= ran) == True:
+                capability.add(task_types[3])
+            elif (0.33 < ran and 0.4 <= ran) == True:
+                capability.add(task_types[0])
+                capability.add(task_types[1])
+            elif (0.4 < ran and 0.46 <= ran) == True:
+                capability.add(task_types[0])
+                capability.add(task_types[2])
+            elif (0.46 < ran and 0.53 <= ran) == True:
+                capability.add(task_types[0])
+                capability.add(task_types[3])
+            elif (0.53 < ran and 0.6 < ran) == True:
+                capability.add(task_types[1])
+                capability.add(task_types[2])
+            elif (0.6 < ran and 0.66 <= ran) == True:
+                capability.add(task_types[1])
+                capability.add(task_types[3])
+            elif (0.66 < ran and 0.73 <= ran) == True:
+                capability.add(task_types[2])
+                capability.add(task_types[3])
+            elif (0.73 < ran and 0.79 <= ran) == True:
+                capability.add(task_types[0])
+                capability.add(task_types[1])
+                capability.add(task_types[2])
+            elif (0.79 < ran and  0.86 <= ran) == True:
+                capability.add(task_types[0])
+                capability.add(task_types[1])
+                capability.add(task_types[3])
+            elif (0.86 < ran and 0.93 <= ran) == True:
+                capability.add(task_types[0])
+                capability.add(task_types[2])
+                capability.add(task_types[3])
+            elif (0.93 < ran and 1.00 <= ran) == True:
+                capability.add(task_types[1])
+                capability.add(task_types[2])
+                capability.add(task_types[3])
+        """
+
+
+
+
+
+
+
+
 if __name__ == "__main__":
 
     parser = argparse.ArgumentParser(description="MRTA Data Generator")
+
+
+
 
     parser.add_argument('--x',
         help='X Dimention of Map',
